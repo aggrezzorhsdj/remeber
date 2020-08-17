@@ -1,0 +1,22 @@
+@import "_var";
+/*Hover Animation*/
+
+.hover-animation(@bg-color, @color) {
+  &::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background-color: @bg-color;
+    width: 0;
+    transition: @transition;
+    z-index: -1;
+  }
+  &:hover{
+    color: @color;
+    &::before{
+      width: 100%;
+    }
+  }
+}

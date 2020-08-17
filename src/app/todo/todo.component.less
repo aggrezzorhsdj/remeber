@@ -1,0 +1,44 @@
+@import "../../assets/_var";
+.todo{
+  &__item{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: @padding-default-y @padding-default-x;
+    border: 0.1rem solid #colors[main];
+    margin-bottom: @margin-bottom-default;
+    border-radius: @border-radius;
+    transition: @transition;
+    cursor: pointer;
+    > * {
+      z-index: 2;
+    }
+    &::before{
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      background-color: #colors[main];
+      width: 0;
+      transition: @transition;
+      z-index: 1;
+    }
+    &:hover{
+      color: #colors[second];
+      &::before{
+        width: 100%;
+      }
+    }
+    &__title{
+      margin-left: @margin-edge-default;
+      flex: 1 0 auto;
+    }
+    &__check{
+      display: flex;
+      align-items: center;
+      margin-right: @margin-edge-default / 3;
+    }
+  }
+}

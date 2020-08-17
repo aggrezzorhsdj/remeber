@@ -1,0 +1,13 @@
+<li *ngFor="let todo of todos; let i = index">
+    <div class="todo__item">
+        <div class="todo__item__check">
+            <input type="checkbox" class="control control_checkbox" (change)="onTodoChecked(todo)" [checked]="todo.completed"/>
+        </div>
+        <div class="todo__item__index">{{ todo._id }}</div>
+        <div class="todo__item__title" [class.text_line-through]="todo.completed">{{ todo.title }} {{todo.date | date : 'dd.MM.yyyy'}}</div>
+        <div class="todo__item__edit mr-2"><button class="btn btn_rounded" (click)="setTodo(todo)">Edit</button></div>
+        <div class="todo__item__remove"><button class="btn btn_rm" (click)="todoRemove(todo._id)">&times;</button></div>
+    </div>
+</li>
+
+<p class="text_center" *ngIf="!todos?.length"> No Todos!</p>

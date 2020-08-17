@@ -1,0 +1,24 @@
+<div class="modal" [class.modal_show]="show?.isShow">
+    <div class="modal__outer">
+        <div class="modal__header">
+            <h3>{{ show?.type }}</h3>
+            <button class="btn modal__close" (click)="toggleShowEditor()">&times;</button>
+        </div>
+        <div class="modal__body">
+            <form [formGroup]="formEditor" novalidate (submit)="onSubmit($event)">
+                <div class="control__group">
+                    <label for="title" class="control__label">Title</label>
+                    <input id="title" name="title" type="text" class="control__input" formControlName="title" placeholder="Title"/>
+                    <div class="alert" *ngIf="this.formEditor.controls['title'].invalid && this.formEditor.controls['title'].touched">Is required</div>
+                </div>
+                <div class="control__group">
+                    <label for="date" class="control__label">Date</label>
+                    <input id="date" name="date" type="date" class="control__input" formControlName="date" placeholder="Date"/>
+                    <div class="alert" *ngIf="this.formEditor.controls['date'].invalid && this.formEditor.controls['date'].touched">Is required</div>
+                </div>
+                <button type="submit" class="btn btn__primary" [disabled]="formEditor.invalid">Save</button>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal__shadow" *ngIf="show?.isShow"></div>

@@ -1,1 +1,217 @@
 /* You can add global styles to this file, and also import other style files */
+@import "assets/_var";
+@import "assets/_reset";
+@import "assets/_mixins";
+html{
+  font-size: 10px;
+}
+body{
+  margin: 0;
+  padding: 0;
+  font-size: @main-font-size;
+  font-family: Roboto, sans-serif;
+}
+
+.container{
+  max-width: 130rem;
+  margin: auto;
+  &_md{
+    max-width: 90rem;
+  }
+}
+
+/* Generate Headings */
+h1,h2,h3,h4,h5,h6 {
+  font-family: Montserrat, sans-serif;
+  color: #000000;
+  margin-top: 0;
+  margin-bottom: @margin-bottom-default;
+  font-weight: bold;
+}
+each(range(6), {
+  h@{value} {
+    color: #000;
+    font-size: if(@value = 1, @heading-font-size, @heading-font-size - (@heading-changer-index * @value));
+  }
+})
+
+/* Modificators */
+.text{
+  &_center{
+    text-align: center;
+  }
+  &_left{
+    text-align: left;
+  }
+  &_right{
+    text-align: right;
+  }
+  &_small{
+    font-size: @main-font-size * @font-size-small-index;
+  }
+  &_line-through{
+    text-decoration: line-through;
+  }
+}
+
+
+each(range(4), {
+  .mt-@{value} {
+  margin-top: ~"@{value}rem";
+  }
+  .mb-@{value} {
+    margin-bottom: ~"@{value}rem";
+  }
+  .ml-@{value} {
+    margin-left: ~"@{value}rem";
+  }
+  .mr-@{value} {
+    margin-right: ~"@{value}rem";
+  }
+})
+
+/* Buttons */
+.btn{
+  position: relative;
+  cursor: pointer;
+  padding: @padding-default-y / 2 @padding-default-x * 2;
+  border: 0.1rem solid darken(#colors[second], 20%);
+  background-color: #colors[second];
+  color: #000;
+  outline: none;
+  border-radius: @border-radius;
+  transition: @transition;
+  z-index: 2;
+  &:active, &:focus, &:hover{
+    outline: none;
+  }
+  &_primary{
+    .hover-animation(darken(#colors[second], 20%), #fff);
+  }
+  &_rm, &_rounded{
+    background-color: #colors[danger];
+    border-color: darken(#colors[danger], 20%);
+    color: #fff;
+    border-radius: 50%;
+    width: 4rem;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: @padding-default-y / 2 @padding-default-x / 2;
+    &:hover{
+      background-color: darken(#colors[danger], 20%);
+    }
+  }
+  &_rounded{
+    color: #000;
+    background-color: #colors[light];
+    border-color: darken(#colors[light], 20%);
+    &:hover{
+      &:hover{
+        background-color: darken(#colors[light], 20%);
+      }
+    }
+  }
+  &:disabled{
+    opacity: 0.5;
+  }
+}
+
+/* Modals */
+.modal{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: @transition;
+  transform: scale(0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  z-index: @modal-z-index;
+  &_show{
+    opacity: 1;
+    transform: none;
+  }
+  &__outer{
+    max-width: @modal-outer-width;
+    background-color: #fff;
+    border-radius: @border-radius;
+    z-index: @modal-z-index + 10;
+  }
+  &__header{
+    position: relative;
+    padding: @padding-default-y @padding-default-x * 2;
+    border-bottom: 0.1rem solid #colors[light];
+  }
+  &__body{
+    padding: @padding-default-y * 2 @padding-default-x * 2;
+  }
+  &__shadow{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: fade(#colors[main], 30%);
+    opacity: 0;
+    z-index: @modal-z-index - 10;
+  }
+  &_show + &__shadow{
+    opacity: 1;
+  }
+  &__close{
+    position: absolute;
+    background: transparent;
+    right: @padding-default-x / 2;
+    top: @padding-default-y / 2;
+    border: 0.1rem solid darken(#colors[light], 30%);
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    padding: @padding-default-y / 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: @transition;
+    &:hover{
+      background-color: #colors[second];
+      border-color: #colors[second];
+    }
+  }
+}
+
+/* Forms */
+.control{
+  &__group{
+    margin-bottom: @margin-bottom-default;
+  }
+  &__input{
+    padding: @control-input-padding;
+    border-radius: @border-radius;
+    border: 0.1rem solid #colors[light];
+    color: #colors[light];
+    transition: @transition;
+    &:focus, &:hover{
+      outline: none;
+      box-shadow: 0 0 1rem 0.3rem fade(#colors[main], 10%);
+    }
+    &:focus{
+      color: #000;
+      border-color: #colors[main];
+    }
+  }
+  &__label{
+    display: block;
+    margin-bottom: @margin-bottom-default / 2;
+  }
+}
+
+/* Alerts */
+.alert{
+  color: #colors[danger];
+  font-size: 1.4rem;
+}
