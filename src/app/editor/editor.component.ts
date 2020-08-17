@@ -6,6 +6,7 @@ import {EditorService} from '../services/editor/editor.service';
 
 import {ITodos} from '../interfaces/todos.interface';
 import {IShow} from '../interfaces/show.interface';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'app-editor',
@@ -46,12 +47,7 @@ export class EditorComponent implements OnInit {
       todo.completed = this.show.isTodo.completed;
       this.TSService.setTodo(todo);
     } else {
-      this.TSService.addTodo(todo).subscribe((res) => {
-        if (res.status === 'success') {
-          this.TSService.getTodos();
-        }
-        console.log(res);
-      });
+      this.TSService.addTodo(todo);
     }
     this.ESService.toggleShowEditor({isShow: false});
     this.formEditor.reset();

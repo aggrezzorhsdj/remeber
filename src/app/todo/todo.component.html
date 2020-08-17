@@ -1,4 +1,4 @@
-<li *ngFor="let todo of todos; let i = index">
+<li *ngFor="let todo of todos$ | async; let i = index">
     <div class="todo__item">
         <div class="todo__item__check">
             <input type="checkbox" class="control control_checkbox" (change)="onTodoChecked(todo)" [checked]="todo.completed"/>
@@ -10,4 +10,4 @@
     </div>
 </li>
 
-<p class="text_center" *ngIf="!todos?.length"> No Todos!</p>
+<p class="text_center" *ngIf="!(todos$ | async) as todos;"> No Todos!</p>
